@@ -46,7 +46,7 @@ def classify(data, labels):
         for en in estimateNum:
             for d in depths:
                 clf = GradientBoostingClassifier(learning_rate=lr, n_estimators=en, max_depth=d)
-                s = kfoldCV(data, labels, clffit, 5, clf)
+                s = kfoldCV(data, labels, clffit, 4, clf)
                 if s[-1] > ba:
                     ba = s[-1]
                     blr = lr
@@ -54,7 +54,7 @@ def classify(data, labels):
                     bd = d
     X = data.as_matrix()
     y = labels.as_matrix()
-    y = y.reshape([y.shape[0]])
+    y = y.reshape([y.shape[1]])
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.25, random_state=0)
 
