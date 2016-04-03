@@ -54,8 +54,8 @@ def classify(data, labels):
                     bd = d
     X = data.as_matrix()
     y = labels.as_matrix()
-    y = y.reshape([y.shape[1]])
 
+    y = y.reshape([y.shape[1]])
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.25, random_state=0)
 
     clf = GradientBoostingClassifier(learning_rate=blr, n_estimators=be, max_depth=bd)
