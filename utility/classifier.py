@@ -50,7 +50,9 @@ def classify(data, labels):
                     be = en
                     bd = d
     clf = GradientBoostingClassifier(learning_rate=blr, n_estimators=be, max_depth=bd)
-    clf.fit(data.as_matrix(), labels.as_matrix())
+    label = labels.as_matrix()
+    label = label.reshape([label.shape[0]])
+    clf.fit(data.as_matrix(), label)
     return ba, clf.feature_importances_
 
 

@@ -6,6 +6,7 @@ import pandas as pd
 def kfoldCV(X, y, f, K, clf=None):
     X = X.as_matrix()
     y = y.as_matrix()
+    y = y.reshape([y.shape[0]])
     kf = KFold(X.shape[0], n_folds=K)
     s = np.zeros([5,])
     for train_index, test_index in kf:
