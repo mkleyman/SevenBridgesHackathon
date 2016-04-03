@@ -6,13 +6,13 @@ def statistics_test(data, labels):
     d = data.as_matrix()
     y = labels.as_matrix()
     y = y.reshape([y.shape[0]])
-    in1 = np.where(y == 0)[0]
-    in2 = np.where(y == 1)[0]
+    in1 = np.where(y < 1e-5)[0]
+    in2 = np.where(y > 1-(1e-5))[0]
     l = []
     for i in range(d.shape[1]):
         s, p = stt.ranksums(d[in1, i], d[in2, i])
         l.append(p)
-    df = pd.DataFrame(data=np.array(l)/len(l), index=data.columns.values, columns=['pvalue'])
+    df = pd.DataFrame(data=np.array(l)*len(l), index=data.columns.values, columns=['pvalue'])
     return df
 
 if __name__ == '__main__':
