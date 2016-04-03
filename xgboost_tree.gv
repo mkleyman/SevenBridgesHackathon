@@ -1,0 +1,8 @@
+digraph {
+	graph [rankdir=UT]
+		0 [label="f757<70.7262" shape=circle]
+			0 -> 1 [label="yes, missing" color="#0000FF"]
+			0 -> 2 [label=no color="#FF0000"]
+		1 [label="leaf=-0.12" shape=box]
+		2 [label="leaf=0.12" shape=box]
+}
