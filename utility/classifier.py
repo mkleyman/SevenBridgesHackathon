@@ -1,6 +1,9 @@
 from sklearn.ensemble import gradient_boosting, GradientBoostingClassifier
+from sklearn.cross_validation import train_test_split
+from sklearn.metrics import accuracy_score, roc_curve
 import pandas as pd
 import numpy as np
+from matplotlib import pyplot as plt
 
 from KFoldCV import kfoldCV
 
@@ -49,11 +52,24 @@ def classify(data, labels):
                     blr = lr
                     be = en
                     bd = d
+    X = data.as_matrix()
+    y = labels.as_matrix()
+    y = y.reshape([y.shape[0]])
+
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.25, random_state=0)
+
     clf = GradientBoostingClassifier(learning_rate=blr, n_estimators=be, max_depth=bd)
-    label = labels.as_matrix()
-    label = label.reshape([label.shape[0]])
-    clf.fit(data.as_matrix(), label)
-    return ba, clf.feature_importances_
+    clf.fit(X_train, y_train)
+    y_pred = clf.predict(X_test)
+    au = accuracy_score(y_test, y_pred)
+    fpr, tpr, t = roc_curve(y_test, y_pred)
+    plt.plot(fpr, tpr, label='roc')
+    plt.xlabel('false positive rate')
+    plt.ylabel('true positive rate')
+    plt.legend(loc=1)
+    plt.savefig('roc.png')
+
+    return au, clf.feature_importances_
 
 
 if __name__ == '__main__':
